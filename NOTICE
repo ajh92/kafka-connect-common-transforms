@@ -1,0 +1,7 @@
+Kafka Connect Common Transforms
+Copyright 2020 Steady
+
+This product includes software developed at Steady (https://steadyapp.com/).
+
+This distribution has a code dependency on Apache Kafka, which is also available under the
+Apache License. The source code can be found at https://github.com/apache/kafka/.
