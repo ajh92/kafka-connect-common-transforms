@@ -19,8 +19,26 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <id>steadyapp</id>
+            <name>Steady Data</name>
+            <url>https://github.com/steadyapp</url>
+            <timezone>America/New_York</timezone>
+            <roles>
+                <role>maintainer</role>
+            </roles>
+        </developer>
+    </developers>
+
     <properties>
         <version.junit>5.7.0</version.junit>
+        <version.kafka>2.4.1</version.kafka>
+        <version.maven.assembly>3.0.0</version.maven.assembly>
+        <version.maven.checkstyle>3.1.0</version.maven.checkstyle>
+        <version.maven.compiler>3.8.1</version.maven.compiler>
+        <version.maven.jar>3.0.2</version.maven.jar>
+        <version.confluent.connect.maven>0.11.3</version.confluent.connect.maven>
     </properties>
 
 
@@ -28,7 +46,7 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-transforms</artifactId>
-            <version>2.4.1</version>
+            <version>${version.kafka}</version>
         </dependency>
 
 
@@ -55,12 +73,14 @@
         </dependency>
 
     </dependencies>
+
+
     <build>
         <plugins>
             <plugin>
                 <groupId>io.confluent</groupId>
                 <artifactId>kafka-connect-maven-plugin</artifactId>
-                <version>0.11.3</version>
+                <version>${version.confluent.connect.maven}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -81,14 +101,89 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven.compiler}</version>
                 <configuration>
                     <source>11</source>
                     <target>11</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${version.maven.jar}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>${version.maven.assembly}</version>
+                <executions>
+                    <execution>
+                        <id>assembly-single-package</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <descriptors>
+                                <descriptor>src/main/resources/assemblies/package.xml</descriptor>
+                            </descriptors>
+                            <formats>
+                                <format>tar.gz</format>
+                            </formats>
+                            <tarLongFileMode>posix</tarLongFileMode>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>${version.maven.checkstyle}</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>src/main/resources/checkstyle/checkstyle.xml</configLocation>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                            <includeResources>false</includeResources>
+                            <includeTestResources>false</includeTestResources>
+                            <sourceDirectories>
+                                <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            </sourceDirectories>
+
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
+
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
 </project>
