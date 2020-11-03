@@ -19,7 +19,7 @@ jobs:
           java-version: 1.11
       - name: Build with Maven
         run: mvn -B package -Dmaven.javadoc.skip=true --file pom.xml &&
-          cp ./target/kafka-connect-common-transforms*.tar.gz ./kafka-connect-common-transforms.tar.gz
+          cp ./target/steady-kafka-connect-common-transforms*.tar.gz ./steady-kafka-connect-common-transforms.tar.gz
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -38,6 +38,6 @@ jobs:
         with:
           # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./kafka-connect-common-transforms.tar.gz
-          asset_name: kafka-connect-common-transforms.tar.gz
+          asset_path: ./steady-kafka-connect-common-transforms.tar.gz
+          asset_name: steady-kafka-connect-common-transforms.tar.gz
           asset_content_type: application/gzip
