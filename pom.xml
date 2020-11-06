@@ -107,8 +107,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${version.maven.compiler}</version>
                 <configuration>
-                    <source>11</source>
-                    <target>11</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -137,7 +137,7 @@
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
-                                <descriptor>src/main/resources/assemblies/package.xml</descriptor>
+                                <descriptor>assembly/package.xml</descriptor>
                             </descriptors>
                             <formats>
                                 <format>tar.gz</format>
@@ -157,7 +157,7 @@
                         <id>validate</id>
                         <phase>validate</phase>
                         <configuration>
-                            <configLocation>src/main/resources/checkstyle/checkstyle.xml</configLocation>
+                            <configLocation>checkstyle/checkstyle.xml</configLocation>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>true</failsOnError>
