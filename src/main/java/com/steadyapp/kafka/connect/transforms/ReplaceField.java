@@ -187,13 +187,20 @@ public abstract class ReplaceField<R extends ConnectRecord<R>> implements Transf
 
   @Override
   public R apply(R record) {
-    if (operatingValue(record) == null) {
+    if (isTombstoneRecord(record)){
+      return record;
+    }
+    else if (operatingValue(record) == null) {
       return record;
     } else if (operatingSchema(record) == null) {
       return applySchemaless(record);
     } else {
       return applyWithSchema(record);
     }
+  }
+
+  private boolean isTombstoneRecord(R record) {
+    return record.value() == null;
   }
 
   private R applySchemaless(R record) {
