@@ -6,7 +6,7 @@
 
     <groupId>com.steadyapp.kafka.connect</groupId>
     <artifactId>kafka-connect-common-transforms</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.2-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>kafka-connect-common-transforms</name>
 
