@@ -174,7 +174,7 @@ public abstract class ReplaceField<R extends ConnectRecord<R>> implements Transf
 
       Object fieldValue = value.get(reverseRenamed(fieldName));
 
-      if (field.schema().type() == Schema.Type.STRUCT) {
+      if (field.schema().type() == Schema.Type.STRUCT && fieldValue != null) {
         Struct structValue = requireStruct(fieldValue, PURPOSE);
         fieldValue = expandStruct(field.schema(), structValue, fieldName);
       }
